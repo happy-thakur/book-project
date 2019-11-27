@@ -10,18 +10,30 @@ import { UniversityCourseViewComponent } from './course/view/view.component';
 import { UniversityStreamComponent } from './stream/stream.component';
 import { UniversityStreamEditComponent } from './stream/edit/edit.component';
 import { UniversityStreamViewComponent } from './stream/view/view.component';
+import { UniversityPublisherComponent } from './publisher/publisher.component';
+import { UniversityPublisherEditComponent } from './publisher/edit/edit.component';
+import { UniversityPublisherViewComponent } from './publisher/view/view.component';
+import { UniversityBookComponent } from './book/book.component';
+import { UniversityBookEditComponent } from './book/edit/edit.component';
+import { UniversityBookViewComponent } from './book/view/view.component';
 
 const COMPONENTS = [
   UniversityUniversityComponent,
   UniversityCourseComponent,
-  UniversityStreamComponent];
+  UniversityStreamComponent,
+  UniversityPublisherComponent,
+  UniversityBookComponent];
 const COMPONENTS_NOROUNT = [
   UniversityUniversityEditComponent,
   UniversityUniversityViewComponent,
   UniversityCourseEditComponent,
   UniversityCourseViewComponent,
   UniversityStreamEditComponent,
-  UniversityStreamViewComponent];
+  UniversityStreamViewComponent,
+  UniversityPublisherEditComponent,
+  UniversityPublisherViewComponent,
+  UniversityBookEditComponent,
+  UniversityBookViewComponent];
 
 @NgModule({
   imports: [

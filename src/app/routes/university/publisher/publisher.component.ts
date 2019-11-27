@@ -1,41 +1,40 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { _HttpClient, ModalHelper } from '@delon/theme';
 import { STColumn, STComponent } from '@delon/abc';
 import { SFSchema } from '@delon/form';
-import { UniversityUniversityEditComponent } from './edit/edit.component';
-import { Router } from '@angular/router';
-import { environment } from '../../../../environments/environment';
+import { UniversityPublisherEditComponent } from './edit/edit.component';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
+import { environment } from '../../../../environments/environment';
 
 @Component({
-  selector: 'app-university-university',
-  templateUrl: './university.component.html',
+  selector: 'app-university-publisher',
+  templateUrl: './publisher.component.html',
 })
-export class UniversityUniversityComponent implements OnInit {
-  url = `${environment.PREFIX}/university/list`;
+export class UniversityPublisherComponent implements OnInit {
+  url = ``;
   searchSchema: SFSchema = {
     properties: {
-      university_name: {
+      publisher_name: {
         type: 'string',
-        title: 'University'
+        title: 'Publisher Name'
       }
     }
   };
   @ViewChild('st', { static: false }) st: STComponent;
   columns: STColumn[] = [
-    { title: 'University Name', index: 'university_name' },
+    { title: 'University Name', index: 'publisher_name' },
     { title: 'Description', index: 'description', default: '---' },
     { title: 'time', type: 'date', index: 'createdAt' },
     {
       title: 'Actions',
       buttons: [
-        { text: 'View', click: (item: any) => { console.log(`/university/${item._id}/course`); this._router.navigate([`/university/${item._id}/course`]) } },
-        { text: 'Add Publisher', click: (item: any) => { console.log(`/university/${item._id}/publisher`); this._router.navigate([`/university/${item._id}/publisher`]) } },
+        { text: 'View', click: (item: any) => { this._router.navigate([`/university/${this.params.universityId}/publisher/${item._id}`]) } },
         {
           text: 'edit',
           type: 'modal',
           modal: {
-            component: UniversityUniversityEditComponent,
+            component: UniversityPublisherEditComponent,
           },
           click: (_record, modal) => this.msg.success(`Reload the page and return the value:${JSON.stringify(modal)}`),
         },
@@ -55,31 +54,37 @@ export class UniversityUniversityComponent implements OnInit {
       ]
     }
   ];
+  params: any;
 
   constructor(
     private _http: _HttpClient,
     private modal: ModalHelper,
     private _router: Router,
+    private _route: ActivatedRoute,
     public msg: NzMessageService,
-    private cdr: ChangeDetectorRef
   ) { }
 
+
   ngOnInit() {
+    this.params = this._route.snapshot.params;
+    this.url = `${environment.PREFIX}/university/${this.params.universityId}/course/list`;
+
   }
 
   add() {
     this.modal
-      .createStatic(UniversityUniversityEditComponent, { i: { id: 0 } })
+      .createStatic(UniversityPublisherEditComponent, { i: { id: 0, university: this.params.universityId } })
       .subscribe(() => this.st.reload());
   }
 
   delete(data: any, that: any) {
     console.log(`Accept ${data}`);
-    this._http.put(`${environment.PREFIX}/university/delete/${data._id}`, { is_deleted: true })
+    this._http.put(`${environment.PREFIX}/university/delete/publisher/${data._id}`, { is_deleted: true })
       .subscribe(() => {
         this.msg.info(`University Deleted`);
         this.st.reload()
       });
 
   }
+
 }

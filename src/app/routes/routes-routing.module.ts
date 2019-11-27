@@ -18,6 +18,8 @@ import { UserLockComponent } from './passport/lock/lock.component';
 import { UniversityUniversityComponent } from './university/university/university.component';
 import { UniversityCourseComponent } from './university/course/course.component';
 import { UniversityStreamComponent } from './university/stream/stream.component';
+import { UniversityPublisherComponent } from './university/publisher/publisher.component';
+import { UniversityBookComponent } from './university/book/book.component';
 
 const routes: Routes = [
   {
@@ -33,6 +35,8 @@ const routes: Routes = [
         data: { title: 'university', titleI18n: 'university' }
       },
       { path: 'university/:universityId/course', component: UniversityCourseComponent, data: { title: 'course', titleI18n: 'course' } },
+      { path: 'university/:universityId/publisher', component: UniversityPublisherComponent, data: { title: 'Publisher', titleI18n: 'publisher' } },
+      { path: 'university/:universityId/publisher/:publisherId/books', component: UniversityBookComponent, data: { title: 'Book', titleI18n: 'book' } },
       { path: 'university/:universityId/course/:courseId/stream', component: UniversityStreamComponent, data: { title: 'stream', titleI18n: 'stream' } },
       { path: 'exception', loadChildren: () => import('./exception/exception.module').then(m => m.ExceptionModule) },
       // Business submodule
