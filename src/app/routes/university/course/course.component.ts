@@ -17,9 +17,9 @@ export class UniversityCourseComponent implements OnInit {
   url = '';
   searchSchema: SFSchema = {
     properties: {
-      no: {
+      course_name: {
         type: 'string',
-        title: 'Numbering'
+        title: 'Course'
       }
     }
   };
@@ -83,8 +83,13 @@ export class UniversityCourseComponent implements OnInit {
     console.log(`Accept ${data}`);
     this._http.put(`${environment.PREFIX}/university/delete/course/${data._id}`, { is_deleted: true })
       .subscribe(() => {
-        this.msg.info(`University Deleted`);
+        this.msg.info(`Course Deleted`);
+        this.st.reload();
       });
 
+  }
+
+  onBack(): void {
+    console.log('onBack');
   }
 }

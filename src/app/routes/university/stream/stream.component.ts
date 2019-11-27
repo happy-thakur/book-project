@@ -12,25 +12,24 @@ import { UniversityStreamEditComponent } from './edit/edit.component';
   templateUrl: './stream.component.html',
 })
 export class UniversityStreamComponent implements OnInit {
-  url = `/user`;
+  url = ``;
   searchSchema: SFSchema = {
     properties: {
       no: {
         type: 'string',
-        title: 'Numbering'
+        title: 'Stream'
       }
     }
   };
   @ViewChild('st', { static: false }) st: STComponent;
   columns: STColumn[] = [
-    { title: 'Numbering', index: 'no' },
-    { title: 'Number of calls', type: 'number', index: 'callNo' },
-    { title: 'Avatar', type: 'img', width: '50px', index: 'avatar' },
+    { title: 'Stream Name', index: "stream_name" },
+    { title: 'Year', type: 'number', index: 'year' },
     { title: 'time', type: 'date', index: 'updatedAt' },
     {
       title: '',
       buttons: [
-        { text: 'View', click: (item: any) => { console.log(`/university/${item._id}/course`); this._router.navigate([`/university/${item._id}/course`]) } },
+        { text: 'View', click: (item: any) => { this._router.navigate([`/university/${this.params.universityId}/course/${this.params.courseId}/stream/${item._id}`]) } },
         {
           text: 'edit',
           type: 'modal',
@@ -67,6 +66,7 @@ export class UniversityStreamComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.params = this._route.snapshot.params;
     this.url = `${environment.PREFIX}/university/${this.params.universityId}/course/${this.params.courseId}/stream/list`;
   }
 
@@ -81,7 +81,8 @@ export class UniversityStreamComponent implements OnInit {
     console.log(`Accept ${data}`);
     this._http.put(`${environment.PREFIX}/university/delete/course/${this.params.courseId}/stream/${data._id}`, { is_deleted: true })
       .subscribe(() => {
-        this.msg.info(`University Deleted`);
+        this.msg.info(`Stream Deleted`);
+        this.st.reload();
       });
 
   }

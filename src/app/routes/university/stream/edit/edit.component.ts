@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NzModalRef, NzMessageService } from 'ng-zorro-antd';
 import { _HttpClient } from '@delon/theme';
 import { SFSchema, SFUISchema } from '@delon/form';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-university-stream-edit',
@@ -12,7 +13,7 @@ export class UniversityStreamEditComponent implements OnInit {
   i: any;
   schema: SFSchema = {
     properties: {
-      stream_name: { type: 'string', title: 'Course Name', maxLength: 15 },
+      stream_name: { type: 'string', title: 'Stream Name', maxLength: 15 },
       description: { type: 'string', title: 'description', maxLength: 140 },
     },
     required: ['stream_name', 'year'],
@@ -42,12 +43,19 @@ export class UniversityStreamEditComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
   save(value: any) {
-    this.http.post(`/user/${this.record.id}`, value).subscribe(res => {
-      this.msgSrv.success('保存成功');
-      this.modal.close(true);
-    });
+    if (!this.record._id) {
+
+      this.http.post(`${environment.PREFIX}/university/${this.i.universityId}/courses/${this.i.courseId}/stream/new`, value).subscribe(res => {
+        this.msgSrv.success('Created successfully');
+        this.modal.close(true);
+      });
+    } else {
+      this.http.put(`${environment.PREFIX}/university/${this.record.universityId}/courses/${this.record.courseId}/stream/${this.record._id}`, value).subscribe(res => {
+        this.msgSrv.success('Updated successfully');
+        this.modal.close(true);
+      });
+    }
   }
 
   close() {

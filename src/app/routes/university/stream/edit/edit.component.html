@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <div class="modal-title" *ngIf="record && record._id"> Edit {{ record.university_name }} information</div>
+  <div class="modal-title" *ngIf="record && record._id"> Edit {{ record.stream_name }} information</div>
   <div class="modal-title" *ngIf="record && !record._id"> Add New Stream information</div>
 </div>
 <sf *ngIf="record" #sf mode="edit" [schema]="schema" [ui]="ui" [formData]="record" button="none">

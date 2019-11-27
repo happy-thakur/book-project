@@ -76,7 +76,7 @@ export class UniversityUniversityComponent implements OnInit {
     this._http.put(`${environment.PREFIX}/university/delete/${data._id}`, { is_deleted: true })
       .subscribe(() => {
         this.msg.info(`University Deleted`);
-        this.cdr.detectChanges();
+        this.st.reload()
       });
 
   }
