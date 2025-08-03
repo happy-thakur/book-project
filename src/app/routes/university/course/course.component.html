@@ -1,0 +1,23 @@
+<page-header [action]="phActionTpl" title="Course">
+  <ng-template #phActionTpl>
+    <div style="width: 100%;">
+      <button (click)="add()" nz-button nzType="primary">New Course</button>
+    </div>
+  </ng-template>
+</page-header>
+<!-- <nz-page-header (nzBack)="onBack()" nzBackIcon nzTitle="Title" nzSubtitle="This is a subtitle"> </nz-page-header> -->
+<!-- <div style="background: white; padding: 10px 0px;">
+  <nz-page-header style="border: 1px solid rgb(235, 237, 240);" nzTitle="Title">
+    <nz-breadcrumb nz-page-header-breadcrumb>
+      <nz-breadcrumb-item>First-level Menu</nz-breadcrumb-item>
+      <nz-breadcrumb-item>
+        <a>Second-level Menu</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>Third-level Menu</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </nz-page-header>
+</!-->
+<nz-card>
+  <sf mode="search" [schema]="searchSchema" (formSubmit)="st.reset($event)" (formReset)="st.reset($event)"></sf>
+  <st #st [data]="url" [columns]="columns"></st>
+</nz-card>
